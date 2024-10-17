@@ -203,5 +203,42 @@ console.assert(
 // Leiðbeint ferli
 
 function start() {
-  // Útfæra
+  alert('Sláðu inn streng með nokkrun orðum til að fá upplýsingar um. \n-Lengsta orðið. \n-Stysta orðið. \n-Strenginn snúið orðið. \n-Fjöldi sérhljóða í streng. \n-Fjöldi samhljóða í streng. \n-Hvort strengurinn sé samhverfur.'); 
+
+  while (true) {
+    const input = prompt('Sláðu inn streng');
+
+    if (input === null || input.trim().length === 0) {
+      const reynaAftur = confirm('viltu prófa aftur?')
+      if (!reynaAftur) {
+        break;
+      }else {
+        continue
+      }
+    }
+
+    const lengstaOrd = longest(input);
+    const stystaOrd = shortest(input);
+    const snuinstrengur = reverse(input);
+    const fjoldivowels = vowels(input);
+    const fjoldisamhljóða = consonants(input);
+    const hvortsamhverfur = palindrome(input);
+
+    alert(`
+    Lengsta orðið er: ${lengstaOrd}
+    Stysta orðið er: ${stystaOrd} 
+    Strengurinn snúinn við: ${snuinstrengur}
+    Fjöldi sérhlóða í streng: ${fjoldivowels}
+    Fjöldi samhljóða í streng: ${fjoldisamhljóða}
+    ${hvortsamhverfur ?'Strengurinn er samhverfur.':'Strengurinn er ekki samhverfur'} `);
+
+    const haldaafram = confirm('viltu reyna aftur?')
+    if (!haldaafram) {
+      break;
+    }else {
+      continue;
+    }
+  }
 }
+
+
