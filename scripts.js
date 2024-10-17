@@ -20,7 +20,7 @@ const VOWELS = 'aeiouyáéýúíóöæ'.split('');
 /**
  * Athuga hvort óþekkt gildi sé strengur eða ekki.
  * @param {unknown} str Óþekkt gildi sem athuga á hvort sé strengur.
- * @returns `true` ef `str` er strengur, annars `false`.
+ * @returns {boolean}`true` ef `str` er strengur, annars `false`.
  */
 // Skilgreinum anonymous fall og bindum við breytuna `isString`
 const isString = (str) => typeof str === 'string';
@@ -49,28 +49,155 @@ function split(str, separator = ' ') {
 // Grunnföll sem skilgreina á
 
 function longest(str) {
-  // Útfæra
+//Ef str er ekki strengur skal skila null
+if (!isString(str)) {
+  return null;
 }
+
+//Ef str er tómur strengur skal skila tómum streng.
+if (str.trim().length === 0) {
+  return '';
+}
+  
+const ordin = split(str, ' ');
+
+let lengstaord = ordin[0];
+
+for (const ord of ordin ) {
+  if (ord.length > lengstaord.length) {
+    lengstaord = ord
+  }
+}
+return lengstaord;
+
+}
+console.assert(
+  longest('halló heimur!') === 'heimur!',
+   'longest: finnur lengsta orðið, heimur!'
+   );
+console.assert(
+  longest('ég er að prófa þetta') === 'prófa',
+   'longest: finnur lengsta orðið, prófa'
+   );
+
 
 function shortest(str) {
-  // Útfæra
+
+  if (!isString(str)) {
+    return null;
+  }
+
+  if (str.trim().length === 0) {
+    return '';
+  }
+
+  const ordin = split(str, ' ');
+
+  let stystaord = ordin[0];
+
+  for (const ord of ordin) {
+    if (ord.length < stystaord.length) {
+      stystaord = ord
+    }
+  }
+  return stystaord;
 }
+console.assert(
+  shortest('halló heimur!') === 'halló',
+   'shortest: finnur stysta orðið, halló'
+   );
+console.assert(
+  shortest('ég er að prófa þetta') === 'ég',
+   'shortest: finnur stysta orðið, ég'
+   );
+
+
 
 function reverse(str) {
-  // Útfæra
+  if (isString(str)) {
+    const split = str.split('');
+    const reversed = split.reverse();
+
+    return reversed.join('');
+  }
+  return null;
 }
+console.assert(
+  reverse('hallo') === 'ollah', 
+  'reverse: snýr við einföldum streng'
+);
+console.assert(
+  reverse(false) === null,
+  'reverse: ef ekki strengur, skila null'
+);
+
 
 function palindrome(str) {
-  // Útfæra
+  if (str.trim().length === 0) {
+    return false;
+  }
+  if (isString(str)) {
+    const venjulegistr = str;
+    const reversestr = venjulegistr.split('').reverse().join('');
+    return venjulegistr === reversestr;
+  }else {
+    return false;
+  }
 }
+console.assert(
+  palindrome('racecar') === true,
+   'palindrome: racecar er samhverfur'
+   );
+console.assert(
+  palindrome('') === false,
+ 'palindrome: tómur strengur er ekki samhverfur'
+ );
+
 
 function vowels(str) {
-  // Útfæra
+  if (isString(str)) {
+    let count = 0;
+    for (const char of str.toLowerCase()) {
+      if (VOWELS.includes(char)) {
+        count += 1
+      }
+    }
+    return count;
+  }
+  return null;
 }
+console.assert(
+  vowels('halló heimur!') === 5,
+   'vowels: halló heimur! hefur 5 sérhljóða'
+   );
+console.assert(
+  vowels('Ég er að prófa þetta.') === 7,
+   'vowels: Ég er að prófa þetta. hefur 7 sérhljóða'
+   );
+
 
 function consonants(str) {
-  // Útfæra
+  if (isString(str)) {
+    let count = 0;
+    for (const char of str.toLowerCase()) {
+      if (CONSONANTS.includes(char)) {
+        count += 1
+      }
+    }
+    return count;
+  }
+  return null;
 }
+console.assert(
+  consonants('halló heimur!') === 6,
+   'vowels: halló heimur! hefur 6 samhljóða'
+   );   
+console.assert(
+  consonants('Ég er að prófa þetta.') === 7,
+   'vowels: Ég er að prófa þetta. hefur 7 sérhljóða'
+   );
+   
+
 
 //------------------------------------------------------------------------------
 // Leiðbeint ferli
